@@ -1,0 +1,6 @@
+{
+    "server": "mail.example.com",
+    "port": 587,
+    "username": "user@example.com",
+    "password": "pass123"
+}

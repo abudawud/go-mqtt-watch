@@ -10,3 +10,10 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+src
+pkg
+
+config/database.json
+config/mail.json
+config/mqtt.json
