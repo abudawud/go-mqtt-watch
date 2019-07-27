@@ -1,10 +1,10 @@
 package main
 
 type Sensors struct {
-    S1		int 
-	S2		int 
-	S3		int 
-	S4		int
-	S5		int 
-	S6		int
+	ID        int   `json:"s"`
+	Timestamp int64 `json:"t"`
+	SensorA1  int32 `json:"ai1"`
+	SensorAS1 int32 `json:"ai_st1"`
+	SensorA2  int32 `json:"ai2"`
+	SensorAS2 int32 `json:"ai_st2"`
 }

@@ -14,6 +14,6 @@
 src
 pkg
 
-config/database.json
-config/mail.json
-config/mqtt.json
+conf/database.json
+conf/mail.json
+conf/mqtt.json
