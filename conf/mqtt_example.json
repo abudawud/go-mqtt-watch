@@ -1,6 +1,0 @@
-{
-    "server": "tcp://example.org:1883",
-    "topic": "example-x",
-    "clientID": "example-id",
-    "qos": 0
-}

@@ -1,0 +1,6 @@
+{
+    "server": "tcp://128.199.235.99:10201",
+    "topic": "Advantech/#",
+    "clientID": "wathcer-01",
+    "qos": 0
+}

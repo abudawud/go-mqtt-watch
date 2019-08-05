@@ -57,6 +57,7 @@ func SendMail(mail Mail) {
 func PostMail(id int, mail Mail) {
 	_, ok := mailQueu[id]
 	if !ok {
+		fmt.Println("POST")
 		mailQueu[id] = time.Now().Unix()
 		mailList[id] = mail
 	}

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 
 	"encoding/json"
@@ -18,22 +19,47 @@ var MAIL_TO = []string{"warishafidz@gmail.com", "rochieirawan2405@gmail.com", "m
 const MAIL_FROM = "abudawud@sabinsolusi.com"
 const MAIL_SUBJECT = "Gas sensor Notification!"
 
+func CreateMail(sValue int, sId string, devId string) (mail Mail) {
+	body := fmt.Sprintf("Device dengan ID: <b>%s</b> kelebihan tekanan <br>", devId)
+	body = fmt.Sprintf("%s Sensor ID: <b>%s</b> <br>", body, sId)
+	body = fmt.Sprintf("%s Tekanan saat ini: <b>%d</b> <br>", body, sValue)
+	body = fmt.Sprintf("%s Lokasi Device: <b>LOKASI</b>", body)
+	mail = Mail{
+		MAIL_FROM,
+		MAIL_TO,
+		MAIL_SUBJECT,
+		body,
+	}
+
+	return mail
+}
+
 func onMessageReceived(client MQTT.Client, message MQTT.Message) {
 	var sensors Sensors
+	id := strings.Replace(message.Topic(), "/data", "", 1)
 	json.Unmarshal([]byte(message.Payload()), &sensors)
 
-	if sensors.SensorA1 > 50 {
-		body := fmt.Sprintf("Device dengan ID: <b>MAC_ADDR</b> kelebihan tekanan <br>")
-		body = fmt.Sprintf("%s Sensor ID: <b>%d</b> <br>", body, sensors.ID)
-		body = fmt.Sprintf("%s Tekanan saat ini: <b>%d</b> <br>", body, sensors.SensorA1)
-		body = fmt.Sprintf("%s Lokasi Device: <b>LOKASI</b>", body)
-		mail := Mail{
-			MAIL_FROM,
-			MAIL_TO,
-			MAIL_SUBJECT,
-			body,
-		}
-		PostMail(sensors.ID, mail)
+	fmt.Printf("Topic: %s, msg: %s\n", id, message.Payload())
+	fmt.Println(sensors.Sensor1)
+	if sensors.Sensor1 > 50 {
+		mail := CreateMail(sensors.Sensor1, "1", id)
+
+		PostMail(1, mail)
+	}
+	if sensors.Sensor2 > 50 {
+		mail := CreateMail(sensors.Sensor2, "2", id)
+
+		PostMail(2, mail)
+	}
+	if sensors.Sensor3 > 50 {
+		mail := CreateMail(sensors.Sensor3, "3", id)
+
+		PostMail(3, mail)
+	}
+	if sensors.Sensor4 > 50 {
+		mail := CreateMail(sensors.Sensor4, "4", id)
+
+		PostMail(3, mail)
 	}
 }
 
@@ -41,8 +67,8 @@ func main() {
 	cfgMQTT := ConfigMQTT{}
 	cfgMail = ConfigMail{}
 
-	err := gonfig.GetConf("conf/mqtt.json", &cfgMQTT)
-	err1 := gonfig.GetConf("conf/mail.json", &cfgMail)
+	err := gonfig.GetConf("conf.d/mqtt.json", &cfgMQTT)
+	err1 := gonfig.GetConf("conf.d/mail.json", &cfgMail)
 
 	if err != nil && err1 != nil {
 		panic(err)
