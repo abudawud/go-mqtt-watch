@@ -19,11 +19,11 @@ var MAIL_TO = []string{"warishafidz@gmail.com", "rochieirawan2405@gmail.com", "s
 const MAIL_FROM = "abudawud@sabinsolusi.com"
 const MAIL_SUBJECT = "Gas sensor Notification!"
 
-func CreateMail(sValue int, sId string, devId string) (mail Mail) {
+func CreateMail(sValue int, sId string, devId string, location string) (mail Mail) {
 	body := fmt.Sprintf("Device dengan ID: <b>%s</b> kelebihan tekanan <br>", devId)
 	body = fmt.Sprintf("%s Sensor ID: <b>%s</b> <br>", body, sId)
 	body = fmt.Sprintf("%s Tekanan saat ini: <b>%d</b> <br>", body, sValue)
-	body = fmt.Sprintf("%s Lokasi Device: <b>LOKASI</b>", body)
+	body = fmt.Sprintf("%s Lokasi Device: <b>%s</b>", body, location)
 	mail = Mail{
 		MAIL_FROM,
 		MAIL_TO,
@@ -42,22 +42,22 @@ func onMessageReceived(client MQTT.Client, message MQTT.Message) {
 	fmt.Printf("Topic: %s, msg: %s\n", id, message.Payload())
 	fmt.Println(sensors.Sensor1)
 	if sensors.Sensor1 > 50 {
-		mail := CreateMail(sensors.Sensor1, "1", id)
+		mail := CreateMail(sensors.Sensor1, "1", id, "Site Mechine A")
 
 		PostMail(1, mail)
 	}
 	if sensors.Sensor2 > 50 {
-		mail := CreateMail(sensors.Sensor2, "2", id)
+		mail := CreateMail(sensors.Sensor2, "2", id, "Site Mechine B")
 
 		PostMail(2, mail)
 	}
 	if sensors.Sensor3 > 50 {
-		mail := CreateMail(sensors.Sensor3, "3", id)
+		mail := CreateMail(sensors.Sensor3, "3", id, "Site Mechine C")
 
 		PostMail(3, mail)
 	}
 	if sensors.Sensor4 > 50 {
-		mail := CreateMail(sensors.Sensor4, "4", id)
+		mail := CreateMail(sensors.Sensor4, "4", id, "Site Mechine D")
 
 		PostMail(3, mail)
 	}
