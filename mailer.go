@@ -42,7 +42,7 @@ func MailSender() {
 func SendMail(mail Mail) {
 	m := gomail.NewMessage()
 	m.SetHeader("From", mail.From)
-	m.SetHeader("To", mail.To[0], mail.To[1], mail.To[2])
+	m.SetHeader("To", mail.To[0], mail.To[1], mail.To[2], mail.To[3])
 	m.SetHeader("Subject", mail.Subject)
 	m.SetBody("text/html", mail.Body)
 

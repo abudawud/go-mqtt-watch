@@ -14,7 +14,7 @@ import (
 )
 
 var cfgMail ConfigMail
-var MAIL_TO = []string{"warishafidz@gmail.com", "rochieirawan2405@gmail.com", "muhammadfadlullah9@gmail.com"}
+var MAIL_TO = []string{"warishafidz@gmail.com", "rochieirawan2405@gmail.com", "suwondo@smartlintas.com", "muhammadfadlullah9@gmail.com"}
 
 const MAIL_FROM = "abudawud@sabinsolusi.com"
 const MAIL_SUBJECT = "Gas sensor Notification!"
